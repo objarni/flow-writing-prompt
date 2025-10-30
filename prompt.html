@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Flow Writing Prompt</title>
+  <style>
+    :root {
+      --bg: #0f1724;
+      --card: #0b1220;
+      --accent: #3b82f6;
+      --muted: #94a3b8;
+      --text: #e6eef8;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg,#071022 0%, #071b2b 100%), var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    .card {
+      width: min(880px, 92vw);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+    }
+    h1 {
+      margin: 0 0 10px 0;
+      font-size: 20px;
+      letter-spacing: -0.2px;
+      color: var(--accent);
+    }
+    p.lead {
+      margin: 0 0 20px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .field {
+      background: rgba(255,255,255,0.02);
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.02);
+    }
+    .label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .value {
+      font-size: 16px;
+      line-height: 1.35;
+      color: var(--text);
+    }
+    .stem {
+      grid-column: 1 / -1;
+      font-weight: 600;
+      color: #cde1ff;
+      font-size: 18px;
+      margin-top: 6px;
+    }
+    footer {
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: right;
+    }
+    @media (max-width:600px){
+      .grid{grid-template-columns:1fr;}
+      .stem{font-size:16px;}
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-label="Flow writing prompt">
+    <h1>Flow Writing — Prompt</h1>
+    <p class="lead">Automatically generated prompt (visual only).</p>
+
+    <div class="grid" id="promptGrid" aria-live="polite">
+      <div class="field">
+        <div class="label">Scen</div>
+        <div class="value" id="scene">...</div>
+      </div>
+
+      <div class="field">
+        <div class="label">Perspektiv</div>
+        <div class="value" id="perspective">...</div>
+      </div>
+
+      <div class="field">
+        <div class="label">Tempus</div>
+        <div class="value" id="tense">...</div>
+      </div>
+
+      <div class="field stem">
+        <div class="label">Starta denna mening</div>
+        <div class="value" id="stem">...</div>
+      </div>
+    </div>
+
+    <footer>Generated on load — no interaction</footer>
+  </main>
+
+  <script>
+    (function () {
+      const SCENES = [
+        "en fullpackad tunnelbana i rusningstid",
+        "ett övergivet fyrtorn vid en stormig kust",
+        "ett litet kök där någon bakar för första gången",
+        "en takträdgård i gryningen",
+        "ett väntrum på sjukhuset efter midnatt",
+        "en skog där träden viskar",
+        "en dammig antikaffär med en trasig klocka",
+        "ett klassrum på förskolan under vilostunden",
+        "en liten fiskebåt på en dimmig sjö",
+        "en livlig utomhusmarknad full av färger och dofter"
+      ];
+
+      const PERSPECTIVES = [
+        "första person (jag)",
+        "andra person (du)",
+        "tredje person begränsad (hon/han/de)",
+        "en gammal hund",
+        "en fågel på en elledning",
+        "ett livlöst föremål (en gammal stol)",
+        "ett femårigt barn",
+        "en opålitlig berättare",
+        "en forskare som observerar objektivt",
+        "en allseende allvetande berättare"
+      ];
+
+      const STEMS = [
+        "Jag kunde inte sluta tänka på...",
+        "Utanför öppnade sig himlen när...",
+        "Första gången jag lade märke till det...",
+        "Vid rummets kant fanns det...",
+        "Om du lyssnar noga kan du höra...",
+        "Mina händer mindes hur man...",
+        "Ingen hade väntat att den lilla...",
+        "När ljuset nådde väggen...",
+        "De sa åt mig att jag aldrig skulle...",
+        "Det började med en enda..."
+      ];
+
+      const TENSES = ["past", "present"];
+
+      function choice(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      // generate once on load and populate DOM
+      document.addEventListener("DOMContentLoaded", function () {
+        const prompt = {
+          scene: choice(SCENES),
+          perspective: choice(PERSPECTIVES),
+          stem: choice(STEMS),
+          tense: choice(TENSES)
+        };
+
+        document.getElementById("scene").textContent = prompt.scene;
+        document.getElementById("perspective").textContent = prompt.perspective;
+        document.getElementById("stem").textContent = prompt.stem;
+        document.getElementById("tense").textContent = prompt.tense;
+      });
+    })();
+  </script>
+</body>
+</html>
